@@ -1,0 +1,16 @@
+.arrow-container {
+  display: flex;
+  align-items: center;
+}
+.arrow-line {
+  height: 10px;
+  width: 200px;
+  background-color: black;
+}
+.arrow-head {
+  width: 0px;
+  height: 0px;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 40px solid black;
+}
