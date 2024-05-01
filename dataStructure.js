@@ -141,9 +141,123 @@ class CircularQueue {
 }
 
 // 4. Link list
-class LinkList {
-  constructor() {
-    this.value = null;
-    this.next = null;
+//  linked list is a linear collection of data elements whose order is not given by their physical placement in memory.
+
+// Node class to represent individual nodes in the linked list
+class LinkListNode {
+  constructor(data) {
+    this.data = data; // Data stored in the node
+    this.next = null; // Pointer to the next node in the list
   }
 }
+
+// LinkedList class to represent the linked list data structure
+class LinkedList {
+  constructor() {
+    this.head = null; // Pointer to the first node in the list
+    this.size = 0; // Number of nodes in the list
+  }
+  // Method to add a new node to the end of the list
+  append(data) {
+    const newNode = new LinkListNode(data);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+    this.size++;
+    console.log(newNode);
+  }
+  // Method to insert a new node at a specified position in the list
+  insertAt(data, index) {
+    if (index < 0 || index > this.size) {
+      throw new Error("Invalid index");
+    }
+    const newNode = new LinkListNode(data);
+    if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      let prev = null;
+      let currentIndex = 0;
+      while (currentIndex < index) {
+        prev = current;
+        current = current.next;
+        currentIndex++;
+      }
+      newNode.next = current;
+      prev.next = newNode;
+    }
+    this.size++;
+  }
+  // Method to remove a node at a specified position from the list
+  removeAt(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      let current = this.head;
+      let prev = null;
+      let currentIndex = 0;
+      while (currentIndex < index) {
+        prev = current;
+        current = current.next;
+        currentIndex++;
+      }
+      prev.next = current.next;
+    }
+    this.size--;
+  }
+  // Method to get the element at a specified position in the list
+  get(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    let current = this.head;
+    let currentIndex = 0;
+    while (currentIndex < index) {
+      current = current.next;
+      currentIndex++;
+    }
+    return current.data;
+  }
+  // Method to clear the list
+  clear() {
+    this.head = null;
+    this.size = 0;
+  }
+  // Method to check if the list is empty
+  isEmpty() {
+    return this.size === 0;
+  }
+  // Method to get the size of the list
+  getSize() {
+    return this.size;
+  }
+  // Method to print the elements of the list
+  print() {
+    let current = this.head;
+    let result = "";
+    while (current) {
+      result += current.data + (current.next ? " -> " : "");
+      current = current.next;
+    }
+    console.log(result);
+  }
+}
+
+const myList = new LinkedList();
+
+// Append elements to the list
+myList.print();
+myList.append(10);
+myList.append(20);
+myList.append(30);
+myList.print();
