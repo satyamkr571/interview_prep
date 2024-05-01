@@ -253,11 +253,271 @@ class LinkedList {
   }
 }
 
-const myList = new LinkedList();
+// 5. Double Link List
+//Doubly linked list is a complex type of linked list in which a node contains a pointer to the previous as well as the next node in the sequence.
+// Therefore, in a doubly linked list, a node consists of three parts: node data, pointer to the next node in sequence(next pointer), pointer to the previous node(previous pointer).
 
-// Append elements to the list
-myList.print();
-myList.append(10);
-myList.append(20);
-myList.append(30);
-myList.print();
+// Node class to represent individual nodes in the doubly linked list
+class DoublyLinkedListNode {
+  constructor(data) {
+    this.data = data; // Data stored in the node
+    this.prev = null; // Pointer to the previous node in the list
+    this.next = null; // Pointer to the next node in the list
+  }
+}
+
+// DoublyLinkedList class to represent the doubly linked list data structure
+class DoublyLinkedList {
+  constructor() {
+    this.head = null; // Pointer to the first node in the list
+    this.tail = null; // Pointer to the last node in the list
+    this.size = 0; // Number of nodes in the list
+  }
+  // Method to add a new node to the end of the list
+  append(data) {
+    const newNode = new DoublyLinkedListNode(data);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+    }
+    this.tail = newNode;
+    this.size++;
+  }
+  // Method to insert a new node at a specified position in the list
+  insertAt(data, index) {
+    if (index < 0 || index > this.size) {
+      throw new Error("Invalid index");
+    }
+    const newNode = new DoublyLinkedListNode(data);
+    if (index === 0) {
+      newNode.next = this.head;
+      if (this.head) {
+        this.head.prev = newNode;
+      } else {
+        this.tail = newNode;
+      }
+      this.head = newNode;
+    } else if (index === this.size) {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    } else {
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index - 1) {
+        current = current.next;
+        currentIndex++;
+      }
+      newNode.next = current.next;
+      newNode.prev = current;
+      current.next.prev = newNode;
+      current.next = newNode;
+    }
+    this.size++;
+  }
+  // Method to remove a node at a specified position from the list
+  removeAt(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    let removedNode;
+    if (index === 0) {
+      removedNode = this.head;
+      this.head = this.head.next;
+      if (this.head) {
+        this.head.prev = null;
+      } else {
+        this.tail = null;
+      }
+    } else if (index === this.size - 1) {
+      removedNode = this.tail;
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    } else {
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index) {
+        current = current.next;
+        currentIndex++;
+      }
+      removedNode = current;
+      current.prev.next = current.next;
+      current.next.prev = current.prev;
+    }
+    this.size--;
+    return removedNode.data;
+  }
+  // Method to get the element at a specified position in the list
+  get(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    let current = this.head;
+    let currentIndex = 0;
+    while (currentIndex < index) {
+      current = current.next;
+      currentIndex++;
+    }
+    return current.data;
+  }
+  // Method to clear the list
+  clear() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+  // Method to check if the list is empty
+  isEmpty() {
+    return this.size === 0;
+  }
+  // Method to get the size of the list
+  getSize() {
+    return this.size;
+  }
+  // Method to print the elements of the list
+  print() {
+    let current = this.head;
+    let result = "";
+    while (current) {
+      result += current.data + (current.next ? " <-> " : "");
+      current = current.next;
+    }
+    console.log(result);
+  }
+}
+
+// 6.
+
+// Node class to represent individual nodes in the circular linked list
+class CircularLinkedListNode {
+  constructor(data) {
+    this.data = data; // Data stored in the node
+    this.next = null; // Pointer to the next node in the list
+  }
+}
+
+// CircularLinkedList class to represent the circular linked list data structure
+class CircularLinkedList {
+  constructor() {
+    this.head = null; // Pointer to the first node in the list
+    this.size = 0; // Number of nodes in the list
+  }
+  // Method to add a new node to the end of the list
+  append(data) {
+    const newNode = new CircularLinkedListNode(data);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next !== this.head) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+    newNode.next = this.head; // Connect the last node to the head to form a circle
+    this.size++;
+  }
+  // Method to insert a new node at a specified position in the list
+  insertAt(data, index) {
+    if (index < 0 || index > this.size) {
+      throw new Error("Invalid index");
+    }
+    const newNode = new CircularLinkedListNode(data);
+    if (index === 0) {
+      if (!this.head) {
+        newNode.next = newNode; // Point the new node to itself if the list is empty
+      } else {
+        let current = this.head;
+        while (current.next !== this.head) {
+          current = current.next;
+        }
+        current.next = newNode;
+        newNode.next = this.head;
+      }
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index - 1) {
+        current = current.next;
+        currentIndex++;
+      }
+      newNode.next = current.next;
+      current.next = newNode;
+    }
+    this.size++;
+  }
+  // Method to remove a node at a specified position from the list
+  removeAt(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    let removedNode;
+    if (index === 0) {
+      removedNode = this.head;
+      if (this.size === 1) {
+        this.head = null;
+      } else {
+        let current = this.head;
+        while (current.next !== this.head) {
+          current = current.next;
+        }
+        current.next = this.head.next;
+        this.head = this.head.next;
+      }
+    } else {
+      let current = this.head;
+      let currentIndex = 0;
+      while (currentIndex < index - 1) {
+        current = current.next;
+        currentIndex++;
+      }
+      removedNode = current.next;
+      current.next = current.next.next;
+    }
+    this.size--;
+    return removedNode.data;
+  }
+  // Method to get the element at a specified position in the list
+  get(index) {
+    if (index < 0 || index >= this.size) {
+      throw new Error("Invalid index");
+    }
+    let current = this.head;
+    let currentIndex = 0;
+    while (currentIndex < index) {
+      current = current.next;
+      currentIndex++;
+    }
+    return current.data;
+  }
+  // Method to clear the list
+  clear() {
+    this.head = null;
+    this.size = 0;
+  }
+  // Method to check if the list is empty
+  isEmpty() {
+    return this.size === 0;
+  }
+  // Method to get the size of the list
+  getSize() {
+    return this.size;
+  }
+  // Method to print the elements of the list
+  print() {
+    if (!this.head) {
+      console.log("(empty)");
+      return;
+    }
+    let current = this.head;
+    let result = "";
+    do {
+      result += current.data + (current.next !== this.head ? " -> " : "");
+      current = current.next;
+    } while (current !== this.head);
+    console.log(result);
+  }
+}
