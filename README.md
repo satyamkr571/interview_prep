@@ -10,10 +10,15 @@ It promotes encapsulation, reducing the likelihood of variable and function name
 
 ### 2. Singleton Pattern:
 The Singleton Pattern ensures that a class has only one instance and provides a global point of access to that instance.
-This can be useful for managing global state or resources in front - end applications.
+This can be useful for managing global state or resources in front-end applications.
 
 ### 3. Observer Pattern:
 The Observer Pattern is excellent for handling events and notifications.
+It defines a one-to-many relationship between objects, where changes in one object trigger updates in multiple dependent objects.
+
+### 4. Factory Pattern:
+The Factory Pattern is useful for creating objects without specifying the exact class of object that will be created.
+It provides a simple and flexible way to create instances.
 
 
 ## Data Structure concept
@@ -26,9 +31,9 @@ Normal Array in JS behaves like a stack only -> All js Array prototype methods p
 
 ###  3. Circular Queue:
 
-The Circular queue is the efficient queue comparing to Array Queue.
-Here the array size is fixed and it wont grow, the empty block created during dequeue operation is reused.
-In order to implement circular queue few enhancement needs to be done on top of Array Queue implementation.
+The Circular queue is the efficient queue compared to Array Queue.
+Here the array size is fixed and it won't grow, the empty block created during the dequeue operation is reused.
+In order to implement a circular queue few enhancement needs to be done on top of Array Queue implementation.
 
 ### 4. Linked List:
 
@@ -37,7 +42,7 @@ Node class to represent individual nodes in the linked list
 
 ### 5. Double Linked List:
 
-Doubly linked list is a complex type of linked list in which a node contains a pointer to the previous as well as the next node in the sequence.
+A doubly linked list is a complex type of linked list in which a node contains a pointer to the previous as well as the next node in the sequence.
 Therefore, in a doubly linked list, a node consists of three parts: node data, pointer to the next node in sequence(next pointer), pointer to the previous node(previous pointer).
 Node class to represent individual nodes in the doubly linked list.
 
@@ -47,9 +52,4 @@ CircularLinkedList class to represent the circular linked list data structure
 Node class to represent individual nodes in the circular linked list
 
 
-It defines a one - to - many relationship between objects, where changes in one object trigger updates in multiple dependent objects.
-
-### 4. Factory Pattern:
-The Factory Pattern is useful for creating objects without specifying the exact class of object that will be created.
-It provides a simple and flexible way to create instances.
 
